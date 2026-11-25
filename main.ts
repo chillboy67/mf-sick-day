@@ -1,8 +1,12 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-// One-liner entry: writes the entry text to /output/entry.txt
-const OUT = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-// Ensure the output directory exists before writing
-mkdirSync(OUT, { recursive: true });
-// Write the entry text exactly as submitted
-writeFileSync(OUT + '/entry.txt', "I cannot come in today: my cat walked across my keyboard, submitted my resignation, and HR has already accepted it.");
-// Second pass: entry output verified unchanged.
+// Puts the sick-day excuse into entry.txt for the make.fun run.
+// The cat did the resigning; this script only does the filing.
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+const destDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const excuseText =
+  "I cannot come in today: my cat walked across my keyboard, submitted my resignation, and HR has already accepted it.";
+
+mkdirSync(destDir, { recursive: true });
+writeFileSync(join(destDir, "entry.txt"), excuseText);
+console.log("excuse saved in " + destDir);
